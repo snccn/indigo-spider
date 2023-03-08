@@ -19,7 +19,9 @@ export default {
     });
   },
   XML: {
-    parser: new XMLParser(),
+    parser: new XMLParser({
+        ignoreAttributes: false
+    }),
   },
   log: logger,
   time: moment,
