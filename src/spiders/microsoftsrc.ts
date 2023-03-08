@@ -56,36 +56,38 @@ interface MSRC_RES {
 }
 
 var d = new database(spiderconf.mysqluri);
-//init database
+
 const init_database = (db: Knex) => {
-  db.schema
-    .createTableIfNotExists(
-      spiderconf.tablename,
-      (table: Knex.CreateTableBuilder) => {
-        table.string("id").primary();
-        table.string("cveTitle").notNullable();
-        table.string("cveNumber").notNullable();
-        table.string("vulnType");
-        table.string("mitreText");
-        table.string("mitreUrl");
-        table.string("publiclyDisclosed");
-        table.string("exploited");
-        table.string("latestSoftwareRelease");
-        table.string("olderSoftwareRelease");
-        table.string("denialOfService");
-        table.string("tag");
-        table.string("issuingCna");
-        table.string("severity");
-        table.string("impact");
-        table.string("baseScore");
-        table.string("temporalScore");
-        table.string("vectorString");
-        table.string("releaseDate");
-      }
-    )
-    .then(() => {
-      $.log.info("数据表microsoft_src创建完毕");
-    });
+  try {
+    db.schema
+      .createTable(
+        spiderconf.tablename,
+        (table: Knex.CreateTableBuilder) => {
+          table.string("id").primary();
+          table.string("cveTitle").notNullable();
+          table.string("cveNumber").notNullable();
+          table.string("vulnType");
+          table.string("mitreText");
+          table.string("mitreUrl");
+          table.string("publiclyDisclosed");
+          table.string("exploited");
+          table.string("latestSoftwareRelease");
+          table.string("olderSoftwareRelease");
+          table.string("denialOfService");
+          table.string("tag");
+          table.string("issuingCna");
+          table.string("severity");
+          table.string("impact");
+          table.string("baseScore");
+          table.string("temporalScore");
+          table.string("vectorString");
+          table.string("releaseDate");
+        }
+      )
+      .then(() => {
+        $.log.info("数据表microsoft_src创建完毕");
+      });
+  } catch {}
 };
 
 // getdata
@@ -134,12 +136,18 @@ const GetData = (starttime: string, endtime: string, d: Knex) => {
       });
     }
   );
-  d.client.destroy()
+  d.client.destroy();
 };
 
 // RUN function
 const Run = () => {
+  try {
+    // init_database(d.KnexInstence);
+  } catch {}
   GetData("2022-12-28", "2023-02-24", d.KnexInstence);
 };
 
-Run();
+(async ()=>{
+  Run();
+})()
+
