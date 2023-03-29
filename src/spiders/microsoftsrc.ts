@@ -1,5 +1,6 @@
 import { AxiosResponse } from "axios";
 import { Knex } from "knex";
+import { setTimeout } from "timers";
 import database from "../utils/database";
 import env from "../utils/env";
 var $ = env;
@@ -9,7 +10,7 @@ const spiderconf = {
   author: "snccn",
   date: "2023-02-24",
   save: "mysql",
-  mysqluri: "mysql://192.168.199.222:3306/spiders?user=pi&password=4dmin029",
+  mysqluri: "mysql://192.168.199.200:32379/spider?user=root&password=4dmin029",
   tablename: "microsoft_src",
   proxy: "socks5://127.0.0.1:6153", // support socks5 proxy
   headers: {
@@ -60,7 +61,7 @@ var d = new database(spiderconf.mysqluri);
 const init_database = (db: Knex) => {
   try {
     db.schema
-      .createTable(
+      .createTableIfNotExists(
         spiderconf.tablename,
         (table: Knex.CreateTableBuilder) => {
           table.string("id").primary();
@@ -128,7 +129,7 @@ const GetData = (starttime: string, endtime: string, d: Knex) => {
           $.log.info(
             `获取数据 title: ${element.cveTitle} - ${element.cveNumber}`
           );
-        } catch {
+        } catch{
           $.log.info(
             `数据存在 title: ${element.cveTitle} - ${element.cveNumber} 跳过`
           );
@@ -136,18 +137,27 @@ const GetData = (starttime: string, endtime: string, d: Knex) => {
       });
     }
   );
-  d.client.destroy();
+  // d.client.destroy();
 };
 
 // RUN function
-const Run = () => {
+const Run = async () => {
+  // init_database(d.KnexInstence);
   try {
-    // init_database(d.KnexInstence);
-  } catch {}
-  GetData("2022-12-28", "2023-02-24", d.KnexInstence);
+    init_database(d.KnexInstence);
+  } catch {
+
+  } finally {
+    await GetData("2022-12-28", "2023-03-24", d.KnexInstence);
+  }
+  // d.KnexInstence.client.destroy()
+  setTimeout(()=>{
+    d.KnexInstence.client.destroy()
+  }, 5000)
 };
 
 (async ()=>{
   Run();
 })()
+
 
