@@ -74,3 +74,9 @@ const spiderconf = {
 ```
 *详细爬虫创建可参见document(建设中)或./src/test/目录下文件*
 
+### TODO
+1. chrome浏览器爬虫
+2. 爬虫编写文档
+3. 数据库相关参数采用环境变量导入方式进行处理
+4. 使用rabbitmq或redis进行任务分发以及调度
+5. 爬虫扩充以及维护
