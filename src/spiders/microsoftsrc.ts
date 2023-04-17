@@ -10,7 +10,7 @@ const spiderconf = {
   author: "snccn",
   date: "2023-02-24",
   save: "mysql",
-  mysqluri: "mysql://192.168.199.200:32379/spider?user=root&password=4dmin029",
+  mysqluri: "mysql://127.0.0.1:3306/spider?user=root&password=root",
   tablename: "microsoft_src",
   proxy: "socks5://127.0.0.1:6153", // support socks5 proxy
   headers: {
@@ -148,7 +148,7 @@ const Run = async () => {
   } catch {
 
   } finally {
-    await GetData("2022-12-28", "2023-03-24", d.KnexInstence);
+    await GetData("2022-12-28", "2023-04-12", d.KnexInstence);
   }
   // d.KnexInstence.client.destroy()
   setTimeout(()=>{

@@ -13,7 +13,7 @@ async function check(db: Knex) {
 
 (async () => {
   var d = new database(
-    "mysql://192.168.199.222:3306/irp?user=pi&password=4dmin029"
+    "mysql://127.0.0.1:3306/mysql?user=root&password=root"
   );
   check(d.KnexInstence);
 })()

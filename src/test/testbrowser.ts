@@ -4,7 +4,7 @@ var $ = env;
 
 
 (async() => {
-    var a = new Browser(true)
+    var a = new Browser(false)
     await a.init_puppeteer()
     var page = await a.openPage('http://www.cip.cc')
     var contents  = await page.content()
