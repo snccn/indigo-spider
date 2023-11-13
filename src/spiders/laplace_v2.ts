@@ -28,12 +28,13 @@ class laplaceSpider extends Spider {
   prepare(): Promise<Boolean> {
     return new Promise<Boolean>(async (resolve, reject) => {
       try {
-        this.browser = new Browser(false)
+        this.browser = new Browser(true)
         await this.browser.init_puppeteer()
-        var page = await this.browser.openPage(this.manifest.url)
-        var contents = await page.content()
-        this.contents = contents
-        resolve(true)
+        this.browser.openPage(this.manifest.url).then(async page => {
+          var contents = await page.content()
+          this.contents = contents
+          resolve(true)
+        })
       } catch (e) {
         reject(e)
       }
@@ -73,7 +74,7 @@ class laplaceSpider extends Spider {
       try {
         await this.browser?.browserInstance.close()
         resolve(true)
-      } catch (e){
+      } catch (e) {
         console.log(e)
         reject(false)
       }
