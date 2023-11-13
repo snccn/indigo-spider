@@ -1,4 +1,3 @@
-import { AxiosResponse } from "axios";
 import * as XLSX from "xlsx";
 import XlsxUtils from "../utils/xlsx";
 import { Spider, SpiderManifest } from "../indigo-sdk/spider"
@@ -46,11 +45,6 @@ class laplaceSpider extends Spider {
       var op = [["标题", "描述", "发布时间", "作者", "URL"]];
       const workbook = XLSX.utils.book_new();
       var rr = this.$.XML.parser.parse(d);
-      // console.log(rr.html.body.div[0].rss.channel)
-      // this.$.log.info(rr.html.body.div[0].rss.channel.item);
-      // this.$.log.info(rr.rss.channel.link);
-      // this.$.log.info(rr.rss.channel.language);
-      // this.$.log.info(rr.rss.channel.description);
 
       rr.html.body.div[0].rss.channel.item.forEach((ele: any) => {
         op.push([
