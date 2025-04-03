@@ -17,7 +17,6 @@
 |laplace_live|RSS|https://laplace.live/covers.xml|excel|
 |microsoftsrc|XHR|https://msrc.microsoft.com/update-guide/vulnerability|mysql|
 |laplace_live_v2|RSS|https://laplace.live/covers.xml|excel|
-|iptv.ts|json|http://shanxiunicom.livehot.wasu.tv|m3u8|
 
 ### 安装与使用
 本仓库采用`ts-node`编写, 使用typescript进行编写, 可使用npm或yarn进行依赖管理以及爬虫启动。
